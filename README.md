@@ -1,6 +1,6 @@
 # Sentiment Analysis using spaCy and VADER
 
-This Python script analyzes the sentiment of text using spaCy for tokenization and VADER (Valence Aware Dictionary and sEntiment Reasoner) for sentiment analysis. It calculates sentiment scores and categorizes them as positive, negative, or neutral based on a threshold.
+This Python script analyzes the sentiment of the text (review) using spaCy for tokenization and VADER (Valence Aware Dictionary and sEntiment Reasoner) for sentiment analysis. It calculates sentiment scores and categorizes them as positive, negative, or neutral based on a threshold.
 
 ## Dependencies
 
