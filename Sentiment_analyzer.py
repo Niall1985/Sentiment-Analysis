@@ -19,9 +19,9 @@ sentiment_score = analyze_sentiment(review_to_be_analyzed)
 print(f"Sentiment Score: {sentiment_score}")
 
 #compound score calculation 
-if sentiment_score['compound'] >= 0.3:
+if sentiment_score['compound'] >= 0.31:
     print("Positive sentiment 😁")
-elif sentiment_score['compound'] <= -0.3:
+elif sentiment_score['compound'] <= -0.01:
     print("Negative sentiment 😡")
 else:
     print("Neutral sentiment 😐")
