@@ -45,8 +45,8 @@ Positive sentiment 😁
 ```
 
 ## Additional notes
-### 1. Adjust the threshold (0.3 and -0.3) in the script to modify how sentiment is categorized as positive, negative, or neutral.
-### 2. Ensure proper input format for accurate sentiment analysis results.
+1. Adjust the threshold (0.3 and -0.3) in the script to modify how sentiment is categorized as positive, negative, or neutral.
+2. Ensure proper input format for accurate sentiment analysis results.
 
 ## License
-### This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
