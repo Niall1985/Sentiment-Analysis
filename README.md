@@ -6,11 +6,12 @@ This Python script analyzes the sentiment of the text (review) using spaCy for t
 
 - `spacy`: Python library for natural language processing.
 - `vaderSentiment`: Python library for sentiment analysis.
+- `pyspellchecker`: Python library for correcting incorrect spellings
 
 ### Install the required dependencies using pip:
 
 ```bash
-pip install spacy vaderSentiment
+pip install spacy vaderSentiment pyspellchecker
 ```
 
 ### Download the spaCy English model
