@@ -11,7 +11,6 @@ import time
 REVIEW_FILE = "extracted_reviews.txt"
 
 def extract_reviews(website):
-    # url = "https://www.trustpilot.com/review/" + website
     url = website
     with open(REVIEW_FILE, "w", encoding="utf-8", buffering=1) as file:
         page = 1
@@ -28,7 +27,7 @@ def extract_reviews(website):
                     review_text = None
             page += 1
             time.sleep(1)  
-            
+
 def append_pos_to_json(review, sentiment):
     with open("pos_json.json", "a", encoding="utf-8") as json_file:  
         json.dump({"review": review, "sentiment": sentiment}, json_file, indent=4)
@@ -59,30 +58,37 @@ def analyze_sentiment(review_to_be_analyzed):
     return sentiment_score
 
 def analyze_reviews():
-    processed_reviews = set() 
+    processed_reviews = set()
+    last_position = 0
+    
     while True:
-        with open(REVIEW_FILE, "r") as file:
-            for line in file:
+        with open(REVIEW_FILE, "r", encoding="utf-8") as file:
+            file.seek(last_position)  # Start reading from the last position
+            new_lines = file.readlines()  # Read all new lines
+            
+            for line in new_lines:
                 review_to_be_analyzed = line.strip()
-                if review_to_be_analyzed not in processed_reviews: 
+                if review_to_be_analyzed and review_to_be_analyzed not in processed_reviews:
                     preprocessed_review = preprocess_text(review_to_be_analyzed)
                     sentiment_score = analyze_sentiment(preprocessed_review)
-                    
+
                     if sentiment_score['compound'] >= 0.31:
                         append_pos_to_json(preprocessed_review, "Positive")
-                        print(f"review: {preprocessed_review}\nsentiment: {"Positive 😁"}")
+                        print(f"review: {preprocessed_review}\nsentiment: Positive 😁")
                     elif sentiment_score['compound'] <= -0.01:
                         append_neg_to_json(preprocessed_review, "Negative")
-                        print(f"review: {preprocessed_review}\nsentiment: {"Negative 😡"}")
+                        print(f"review: {preprocessed_review}\nsentiment: Negative 😡")
                     else:
                         append_neu_to_json(preprocessed_review, "Neutral")
-                        print(f"review: {preprocessed_review}\nsentiment: {"Neutral 😐"}")
+                        print(f"review: {preprocessed_review}\nsentiment: Neutral 😐")
 
-                    processed_reviews.add(review_to_be_analyzed)  
-        time.sleep(2) 
+                    processed_reviews.add(review_to_be_analyzed)
+            
+            last_position = file.tell()  
+
+        time.sleep(2)  
 
 if __name__ == "__main__":
-    # website = input("Enter the website to review: ")
     website = "https://www.trustpilot.com/review/www.communityphone.org"
     with ThreadPoolExecutor() as executor:
         executor.submit(extract_reviews, website)
